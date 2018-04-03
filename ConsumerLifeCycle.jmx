@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="4.0" jmeter="4.0 r1823414">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="build-adv-web-test-plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">${__P(hostProtocol,https)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="host" elementType="Argument">
+            <stringProp name="Argument.name">host</stringProp>
+            <stringProp name="Argument.value">${__P(host,consumer-lifecycle-services.apps.stl.pcfdev00.mastercard.int)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">${__P(port,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="mt_path" elementType="Argument">
+            <stringProp name="Argument.name">mt_path</stringProp>
+            <stringProp name="Argument.value">${__P(mt_path,api/scim/v2/Users)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="numberOfThreads" elementType="Argument">
+            <stringProp name="Argument.name">numberOfThreads</stringProp>
+            <stringProp name="Argument.value">${__P(numberOfThreads,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="rampUp" elementType="Argument">
+            <stringProp name="Argument.name">rampUp</stringProp>
+            <stringProp name="Argument.value">${__P(rampUp,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loopCount" elementType="Argument">
+            <stringProp name="Argument.name">loopCount</stringProp>
+            <stringProp name="Argument.value">${__P(loopCount,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${host}</stringProp>
+        <stringProp name="HTTPSampler.port">${port}</stringProp>
+        <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Authorization</stringProp>
+            <stringProp name="Header.value">xyz</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="JMeter Users" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${loopCount}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${numberOfThreads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${rampUp}</stringProp>
+        <longProp name="ThreadGroup.start_time">1373789594000</longProp>
+        <longProp name="ThreadGroup.end_time">1373789594000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration">300</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller" enabled="true">
+          <intProp name="ThroughputController.style">1</intProp>
+          <boolProp name="ThroughputController.perThread">false</boolProp>
+          <intProp name="ThroughputController.maxThroughput">1</intProp>
+          <FloatProperty>
+            <name>ThroughputController.percentThroughput</name>
+            <value>40.0</value>
+            <savedValue>0.0</savedValue>
+          </FloatProperty>
+        </ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="CreateUser" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;id&quot;: null,&#xd;
+  &quot;externalId&quot;: &quot;8fdf9c17-04df-4db0-841f-f1a5898a45bd&quot;,&#xd;
+  &quot;meta&quot;: null,&#xd;
+  &quot;schemas&quot;: [],&#xd;
+  &quot;userName&quot;: &quot;Joe Test User usernamecbaf927d-e3ee-4a85-8ad7-59773eb47051&quot;,&#xd;
+  &quot;name&quot;: {&#xd;
+    &quot;formatted&quot;: &quot;null  Joe Advanced Fully Fleshed Out User null User null&quot;,&#xd;
+    &quot;familyName&quot;: &quot;User&quot;,&#xd;
+    &quot;givenName&quot;: &quot;Joe Advanced Fully Fleshed Out User&quot;,&#xd;
+    &quot;middleName&quot;: null,&#xd;
+    &quot;honorificPrefix&quot;: null,&#xd;
+    &quot;honorificSuffix&quot;: null&#xd;
+  },&#xd;
+  &quot;displayName&quot;: &quot;Joe Test Display&quot;,&#xd;
+  &quot;nickName&quot;: &quot;nick name&quot;,&#xd;
+  &quot;profileUrl&quot;: &quot;https://scimuserprofile/users&quot;,&#xd;
+  &quot;title&quot;: &quot;Developer&quot;,&#xd;
+  &quot;userType&quot;: &quot;Dummy User&quot;,&#xd;
+  &quot;preferredLanguage&quot;: &quot;en_US&quot;,&#xd;
+  &quot;locale&quot;: &quot;&quot;,&#xd;
+  &quot;timezone&quot;: &quot;sun.util.calendar.ZoneInfo[id=\&quot;America/Chicago\&quot;,offset=-21600000,dstSavings=3600000,useDaylight=true,transitions=235,lastRule=java.util.SimpleTimeZone[id=America/Chicago,offset=-21600000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]]&quot;,&#xd;
+  &quot;active&quot;: true,&#xd;
+  &quot;password&quot;: &quot;password&quot;,&#xd;
+  &quot;emails&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;email operation&quot;,&#xd;
+      &quot;value&quot;: &quot;email@non-existent-address.com&quot;,&#xd;
+      &quot;display&quot;: &quot;email display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;phoneNumbers&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: null,&#xd;
+      &quot;value&quot;: null,&#xd;
+      &quot;display&quot;: &quot;Phone Display&quot;,&#xd;
+      &quot;primary&quot;: false,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;ims&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Im Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;skype user123&quot;,&#xd;
+      &quot;display&quot;: &quot;Im display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;photos&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Photo Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;Photo Value&quot;,&#xd;
+      &quot;display&quot;: &quot;Photo Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;addresses&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: null,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;formatted&quot;: &quot;2200 Mastercard Boulevard O&apos;Fallon MO 63368-7263&quot;,&#xd;
+      &quot;streetAddress&quot;: &quot;2200 Mastercard Boulevard&quot;,&#xd;
+      &quot;locality&quot;: &quot;O&apos;Fallon&quot;,&#xd;
+      &quot;region&quot;: &quot;MO&quot;,&#xd;
+      &quot;postalCode&quot;: &quot;63368-7263&quot;,&#xd;
+      &quot;country&quot;: &quot;USA&quot;,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;groups&quot;: [],&#xd;
+  &quot;entitlements&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Entitlement Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;Entitlement&quot;,&#xd;
+      &quot;display&quot;: &quot;Entitlement Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;roles&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Role Operation&quot;,&#xd;
+      &quot;value&quot;: null,&#xd;
+      &quot;display&quot;: &quot;Role Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;x509Certificates&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${mt_path}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="TestPlan.comments">						</stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49587">201</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">userid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">300</stringProp>
+            <stringProp name="RandomTimer.range">100.0</stringProp>
+          </GaussianRandomTimer>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Request" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${mt_path}/${userid}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UpdateUser" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+ &quot;id&quot;: &quot;${userid}&quot;,&#xd;
+  &quot;externalId&quot;: &quot;8fdf9c17-04df-4db0-841f-f1a5898a45bd&quot;,&#xd;
+  &quot;meta&quot;: null,&#xd;
+  &quot;schemas&quot;: [],&#xd;
+  &quot;userName&quot;: &quot;Joe Test User - Updated&quot;,&#xd;
+  &quot;name&quot;: {&#xd;
+    &quot;formatted&quot;: &quot;null  Joe Advanced Fully Fleshed Out User null User null&quot;,&#xd;
+    &quot;familyName&quot;: &quot;User - - Updated&quot;,&#xd;
+    &quot;givenName&quot;: &quot;Joe Advanced Fully Fleshed Out User&quot;,&#xd;
+    &quot;middleName&quot;: null,&#xd;
+    &quot;honorificPrefix&quot;: null,&#xd;
+    &quot;honorificSuffix&quot;: null&#xd;
+  },&#xd;
+  &quot;displayName&quot;: &quot;Joe Test Display - Updated&quot;,&#xd;
+  &quot;nickName&quot;: &quot;nick name - Updated&quot;,&#xd;
+  &quot;profileUrl&quot;: &quot;https://scimuserprofile/users&quot;,&#xd;
+  &quot;title&quot;: &quot;Developer&quot;,&#xd;
+  &quot;userType&quot;: &quot;Dummy User&quot;,&#xd;
+  &quot;preferredLanguage&quot;: &quot;en_US&quot;,&#xd;
+  &quot;locale&quot;: &quot;&quot;,&#xd;
+  &quot;timezone&quot;: &quot;sun.util.calendar.ZoneInfo[id=\&quot;America/Chicago\&quot;,offset=-21600000,dstSavings=3600000,useDaylight=true,transitions=235,lastRule=java.util.SimpleTimeZone[id=America/Chicago,offset=-21600000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]]&quot;,&#xd;
+  &quot;active&quot;: true,&#xd;
+  &quot;password&quot;: &quot;password&quot;,&#xd;
+  &quot;emails&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;email operation&quot;,&#xd;
+      &quot;value&quot;: &quot;email@non-existent-address.com&quot;,&#xd;
+      &quot;display&quot;: &quot;email display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;phoneNumbers&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: null,&#xd;
+      &quot;value&quot;: null,&#xd;
+      &quot;display&quot;: &quot;Phone Display&quot;,&#xd;
+      &quot;primary&quot;: false,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;ims&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Im Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;skype user123&quot;,&#xd;
+      &quot;display&quot;: &quot;Im display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;photos&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Photo Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;Photo Value&quot;,&#xd;
+      &quot;display&quot;: &quot;Photo Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;addresses&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: null,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;formatted&quot;: &quot;2200 Mastercard Boulevard O&apos;Fallon MO 63368-7263&quot;,&#xd;
+      &quot;streetAddress&quot;: &quot;2200 Mastercard Boulevard&quot;,&#xd;
+      &quot;locality&quot;: &quot;O&apos;Fallon&quot;,&#xd;
+      &quot;region&quot;: &quot;MO&quot;,&#xd;
+      &quot;postalCode&quot;: &quot;63368-7263&quot;,&#xd;
+      &quot;country&quot;: &quot;USA&quot;,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;groups&quot;: [],&#xd;
+  &quot;entitlements&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Entitlement Operation&quot;,&#xd;
+      &quot;value&quot;: &quot;Entitlement&quot;,&#xd;
+      &quot;display&quot;: &quot;Entitlement Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;roles&quot;: [&#xd;
+    {&#xd;
+      &quot;operation&quot;: &quot;Role Operation&quot;,&#xd;
+      &quot;value&quot;: null,&#xd;
+      &quot;display&quot;: &quot;Role Display&quot;,&#xd;
+      &quot;primary&quot;: true,&#xd;
+      &quot;type&quot;: null,&#xd;
+      &quot;ref&quot;: null&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;x509Certificates&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${mt_path}/${userid}</stringProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Request" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${mt_path}/${userid}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>false</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
+          </value>
+        </objProp>
+        <stringProp name="TestPlan.comments">Use only during debug of script</stringProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
